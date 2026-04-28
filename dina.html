@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Manajemen Mahasiswa</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #fceabb, #f8b500);
+    margin: 0;
+    padding: 20px;
+}
+
+/* CARD UTAMA */
+.container {
+    max-width: 600px;
+    margin: auto;
+    background: linear-gradient(135deg, #ffd200, #ff9a00);
+    padding: 25px;
+    border-radius: 15px;
+    color: #333;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* TITLE */
+h2 {
+    text-align: center;
+}
+
+/* INPUT */
+input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: none;
+}
+
+/* FLEX ROW */ /* Rusydina */
+.row {
+    display: flex; /* membuat isi di dalam .row jadi sejajar ke samping */
+    gap: 10px; /* memberi jarak antar elemen sebesar 10px */
+}
+
+/* BUTTON */
+button {
+    padding: 10px; /* jarak isi tombol biar tidak sempit */
+    border: none; /* menghilangkan garis pinggir tombol */
+    border-radius: 8px; /* membuat sudut tombol melengkung */
+    cursor: pointer; /* kursor berubah jadi tangan saat diarahkan */
+    font-weight: bold; /* membuat teks tombol jadi tebal */
+}
+
+/* ✅ SUBMIT JADI HIJAU */
+.submit {
+    background: #00c853; /* memberi warna hijau pada tombol submit */
+    color: white; /* warna teks jadi putih */
+}
+
+/* RESET */
+.reset {
+    background: #ff4d4d; /* memberi warna merah pada tombol reset */
+    color: white; /* warna teks jadi putih */
+}
+
+/* TABLE */
+.table-container {
+    max-width: 600px; /* lebar maksimal 600px */
+    margin: 20px auto; /* posisi tengah + jarak atas bawah 20px */
+    background: linear-gradient(135deg, #ffd200, #ff9a00); /* warna gradasi kuning */
+    padding: 20px; /* jarak isi ke tepi container */
+    border-radius: 15px; /* sudut container jadi melengkung */
+    color: #333; /* warna teks jadi abu gelap */
+}
+
+table {
+    width: 100%; /* tabel memenuhi lebar container */
+    border-collapse: collapse; /* menggabungkan garis border biar rapi */
+    margin-top: 10px; /* jarak dari elemen atas */
+}
+
+th, td {
+    padding: 10px; /* jarak isi dalam sel tabel */
+    text-align: center; /* teks di tengah */
+}
+
+th {
+    border-bottom: 2px solid #333; /* garis bawah pada header tabel */
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>📌 Manajemen Mahasiswa</h2>
+
+    <form>
+        <div class="row">
+            <input type="text" placeholder="NIM">
+            <input type="text" placeholder="Nama Lengkap">
+        </div>
+
+        <textarea placeholder="Alamat"></textarea>
+
+        <div class="row">
+            <select>
+                <option>Jenis Kelamin</option>
+                <option>Pria</option>
+                <option>Wanita</option>
+            </select>
+
+            <input type="password" placeholder="Password">
+        </div>
+
+        <button class="submit">+ Input Data</button>
+        <button class="reset">Reset</button>
+    </form>
+</div>
+
+<div class="table-container">
+    <h3>📋 Data Mahasiswa</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>NIM</th>
+                <th>Nama</th>
+                <th>JK</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="5">Belum ada data</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+const form = document.querySelector("form");
+const tbody = document.querySelector("tbody");
+
+let no = 1;
+
+form.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const nim = form.querySelectorAll("input")[0].value;
+    const nama = form.querySelectorAll("input")[1].value;
+    const jk = form.querySelector("select").value;
+
+    if (tbody.children.length === 1 && tbody.children[0].innerText.includes("Belum ada")) {
+        tbody.innerHTML = "";
+    }
+
+    const row = `
+        <tr>
+            <td>${no++}</td>
+            <td>${nim}</td>
+            <td>${nama}</td>
+            <td>${jk}</td>
+            <td>-</td>
+        </tr>
+    `;
+
+    tbody.innerHTML += row;
+
+    form.reset();
+});
+</script>
+
+</body>
+</html>
